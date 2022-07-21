@@ -10,7 +10,7 @@ Val = 'Beta'; % Sigma: pRF size / Beta: BOLD amplitude
 StatFolder = '/Users/cemreyilmaz/Documents/fear-pRF/results';
 EstFolder = '/Users/cemreyilmaz/Documents/fear-pRF/data/estimates';
 cd(EstFolder)
-var = 'Hemispheres'; % post-hoc variable: ROI / Hemispheres
+var = 'ROI'; % post-hoc variable: ROI / Hemispheres
 % ----------------------------------------------------------------------- %
 % pRFcenter location 
 Data = readtable('pRFcenter.csv');
@@ -43,10 +43,10 @@ ranovatbl_val=[ranovatbl_val.Properties.RowNames,
     ranovatbl_val.ranovatbl_val(2,:);...
     ranovatbl_val.ranovatbl_val(3,:)];
 cd(StatFolder)
-writetable(ranovatbl_pRF, 'rmANOVA_pRFcenter.csv')
-writetable(ranovatbl_val, ['rmANOVA_' Val '.csv'])
+writetable(ranovatbl_pRF, 'rmANOVA_pRFcenter.csv','WriteRowNames',true)
+writetable(ranovatbl_val, ['rmANOVA_' Val '.csv'],'WriteRowNames',true)
 % ----------------------------------------------------------------------- %
 % Save results for multiple comparison (post-hoc)
 cd(StatFolder)
-writetable(tbl_val,['Posthoc_pRFcenter_' var '.csv'])
-writetable(tbl_val,['Posthoc_' Val '_' var '.csv'])
+writetable(tbl_val,['Posthoc_pRFcenter_' var '.csv'],'WriteRowNames',true)
+writetable(tbl_val,['Posthoc_' Val '_' var '.csv'],'WriteRowNames',true)
