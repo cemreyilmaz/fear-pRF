@@ -6,11 +6,11 @@
 % You can save the results as csv by uncommenting the last two parts of code.
 % ----------------------------------------------------------------------- %
 clear all; close all;
-Val = 'Beta'; % Sigma: pRF size / Beta: BOLD amplitude
+Val = 'Sigma'; % Sigma: pRF size / Beta: BOLD amplitude
 StatFolder = '/Users/cemreyilmaz/Documents/fear-pRF/results';
 EstFolder = '/Users/cemreyilmaz/Documents/fear-pRF/data/estimates';
 cd(EstFolder)
-var = 'ROI'; % post-hoc variable: ROI / Hemispheres
+var = 'Hemispheres'; % post-hoc variable: ROI / Hemispheres
 % ----------------------------------------------------------------------- %
 % pRFcenter location 
 Data = readtable('pRFcenter.csv');
@@ -34,14 +34,14 @@ tbl_val = multcompare(rm_val,var,'Alpha', 0.05, ...
 % ranavotbl cannot be saved as it is. So, I rearranged it.
 ranovatbl_pRF = table(ranovatbl_pRF);
 ranovatbl_pRF=[ranovatbl_pRF.Properties.RowNames,
-    ranovatbl_pRF.ranovatbl_pRF(1,:);
-    ranovatbl_pRF.ranovatbl_pRF(2,:);...
-    ranovatbl_pRF.ranovatbl_pRF(3,:)];
+    ranovatbl_pRF.ranovatbl_pRF(1,:);ranovatbl_pRF.ranovatbl_pRF(2,:);...
+    ranovatbl_pRF.ranovatbl_pRF(3,:);ranovatbl_pRF.ranovatbl_pRF(4,:);...
+    ranovatbl_pRF.ranovatbl_pRF(5,:);ranovatbl_pRF.ranovatbl_pRF(6,:)];
 ranovatbl_val = table(ranovatbl_val);
 ranovatbl_val=[ranovatbl_val.Properties.RowNames,
-    ranovatbl_val.ranovatbl_val(1,:);
-    ranovatbl_val.ranovatbl_val(2,:);...
-    ranovatbl_val.ranovatbl_val(3,:)];
+    ranovatbl_val.ranovatbl_val(1,:);ranovatbl_val.ranovatbl_val(2,:);...
+    ranovatbl_val.ranovatbl_val(3,:);ranovatbl_val.ranovatbl_val(4,:);...
+    ranovatbl_val.ranovatbl_val(5,:);ranovatbl_val.ranovatbl_val(6,:)];
 cd(StatFolder)
 writetable(ranovatbl_pRF, 'rmANOVA_pRFcenter.csv','WriteRowNames',true)
 writetable(ranovatbl_val, ['rmANOVA_' Val '.csv'],'WriteRowNames',true)
