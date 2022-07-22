@@ -10,8 +10,7 @@ clear all; close all;
 EstimateFolder = '/Users/cemreyilmaz/Documents/fear-pRF/data/estimates/';
 StatFolder = '/Users/cemreyilmaz/Documents/fear-pRF/results/';
 % import data
-cd(EstimateFolder)
-data = readtable('Vertices_Eccentricity_vs_Sigma.csv');
+data = readtable([EstimateFolder 'Vertices_Eccentricity_vs_Sigma.csv']);
 within = table([1 2 3]','VariableNames',{'Conditions'});
 rm = fitrm(data,'Scrambled-Emotional~Hemispheres','WithinDesign',within); 
 stats = mes1way([data.Scrambled,data.Neutral,data.Emotional],'eta2');
