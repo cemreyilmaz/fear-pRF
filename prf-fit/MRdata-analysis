@@ -1,0 +1,35 @@
+After data collection:
+1 - prepT1.m to create NII file for structural image (for each session separately).
+2 - AverageT1.m to create an averaged structural image for the subject.
+3 - recon-all to perform reconstruction of structural data by using FreeSurfer for each session and averaged T1.
+4 - twocoreg.m for functional preprocessing and pRF fit.
+Note: aps_Ridge.mat includes the binary stimulus presentation. You can check the stimulus movie with ViewApertures in MATLAB. It is used for pRF fit.
+
+
+## recon-all ##
+The analysis start with prepT1.m. You can personalize the code for your special needs.
+
+Then, [subjectName]_T1.nii file will be saved as output by the code into FSFolder that you specified. 
+You can start FreeSurfer anatomical processing by using the following code. This step will be done using terminal.
+
+# to install freesurfer
+tcsh 
+setenv FREESURFER_HOME /Applications/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.csh
+
+# go to the FSFolder. Don't forget to change the subjectName. 
+# Takes ~8-10 hours. You may leave the computer overnight.
+cd /Applications/freesurfer/subjects
+recon-all -i erf04_T1.nii -s erf04 -all
+
+# rearrange the output
+cd /Applications/freesurfer/subjects/erf04/mri
+mri_convert --out_orientation RAS -rt nearest orig.mgz erf04.nii
+
+# take the average of three sessions BEFORE functional analyses!
+
+cd /Applications/freesurfer/subjects
+make_average_subject --out erf02 --subjects ERF02sc ERF02neutr ERF02sc
+
+cd /Applications/freesurfer/subjects/erf02/mri
+mri_convert --out_orientation RAS -rt nearest orig.mgz erf02.nii
